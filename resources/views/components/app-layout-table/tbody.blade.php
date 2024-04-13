@@ -1,0 +1,4 @@
+<tbody
+{{$attributes([])}}>
+    {{ $slot }}
+</tbody>
