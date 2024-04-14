@@ -130,8 +130,8 @@ Route::prefix('branch')->middleware(['auth', 'branch'])->group(function () {
     Route::post('/branches/{branch}/create', [BranchController::class, 'storeTarget'])->name('branch.resetTarget');
 
     //noticeboard
-    Route::get('/noticeboard', [NoticeBoardDownloadsController::class, 'NoticeBoard'])->name('noticeboard.index');
-    Route::get('/noticeboard', [NoticeBoardDownloadsController::class, 'DocumentDownloads'])->name('noticeboard.index');
+    Route::get('/noticedownload/notice', [NoticeBoardDownloadsController::class, 'noticeBoard'])->name('noticeboard.noticeBoard');
+    Route::get('/noticedownload/downloads', [NoticeBoardDownloadsController::class, 'documentDownloads'])->name('noticeboard.documentDownloads');
 
     //resources
     Route::resource('/branchreport', BranchReportController::class)->except(['edit', 'update']);

@@ -27,7 +27,7 @@
                     $selected = 1;
                 } elseif (str_contains($url, '/branchreport') || str_contains($url, '/propertyreport')) {
                     $selected = 2;
-                } elseif (str_contains($url, '/noticeboard') || str_contains($url, '/downloads')) {
+                } elseif (str_contains($url, '/noticedownload') ) {
                     $selected = 3;
                 }
             @endphp
@@ -87,8 +87,8 @@
                 </x-app-layout.sm-lidropdown>
 
                 <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="Notices & Downloads">
-                    <x-app-layout.sm-ul-li lable="Notice Board" link="/branch/noticeboard" />
-                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="/branch/downloads" />
+                    <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard')}}" />
+                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="{{ route('noticeboard.documentDownloads')}}" />
                 </x-app-layout.sm-lidropdown>
             @endcan
             <!-- //BRANCH MENUS -->

@@ -30,7 +30,7 @@
 
                                 <x-app-layout-table.th lablename="Title" />
                                 <x-app-layout-table.th lablename="File Name" />
-                                <x-app-layout-table.th lablename="Status" />
+                                 
                                 <x-app-layout-table.th data-sortable="false" lablename="Actions" />
                             </x-app-layout-table.thead>
                             <x-app-layout-table.tbody>
