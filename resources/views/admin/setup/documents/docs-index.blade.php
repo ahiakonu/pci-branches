@@ -44,7 +44,7 @@
                                             <x-app-layout-table.td> {{ $evt->original_name }} </x-app-layout-table.td>
 
                                             <x-app-layout-table.td>
-                                                @if ($evt->status === 'Visible In App')
+                                                @if ($evt->status === 'Visible')
                                                     <x-app-layout-table.tt-green> {{ $evt->status }}
                                                     </x-app-layout-table.tt-green>
                                                 @else
@@ -59,7 +59,7 @@
                                                     <x-app-layout.tooltip-header>
                                                         <a href="javascript:;" x-on:mouseover="tooltips = true"
                                                             x-on:mouseleave="tooltips = false"
-                                                            onclick="SumitEdit('View {{ ucwords($evt->title) }} ?','/school/policies/{{ $evt->id }}/edit')"
+                                                            onclick="SumitEdit('View {{ ucwords($evt->title) }} ?','/admin/setup/upload/{{ $evt->id }}/edit')"
                                                             class="py-1 px-4 inline-block text-sm text-center mb-3 rounded leading-5
                                                             text-indigo-500 bg-transparent border border-indigo-500 hover:text-gray-100
                                                             hover:bg-indigo-500 hover:ring-0 hover:border-indigo-500 focus:text-gray-100
@@ -69,7 +69,7 @@
                                                     </x-app-layout.tooltip-header>
 
 
-                                                    <form action="{{ route('policies.destroy', $evt->id) }}"
+                                                    <form action="{{ route('upload.destroy', $evt->id) }}"
                                                         method="post"
                                                         onsubmit="return SubmitDelete(this,'Delete {{ $evt->title }}');">
                                                         @csrf

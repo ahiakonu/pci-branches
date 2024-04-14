@@ -47,7 +47,7 @@ class BranchReportController extends Controller
                 'year' => 'required',
                 'month' => 'nullable'
             ]);
- Log::info($data);
+            Log::info($data);
             $year = $data['year'] ??  now()->year;
             $month = $data['month'] ??  now()->month;
 
@@ -71,9 +71,7 @@ class BranchReportController extends Controller
         }
     }
 
-
-
-
+ 
     /**
      * Show the form for creating a new resource.
      */

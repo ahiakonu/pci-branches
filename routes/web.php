@@ -7,6 +7,7 @@ use App\Http\Controllers\BranchReportController;
 use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\NoticeBoardController;
+use App\Http\Controllers\NoticeBoardDownloadsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportDownloadController;
 use App\Http\Controllers\ReportGenerationController;
@@ -129,7 +130,10 @@ Route::prefix('branch')->middleware(['auth', 'branch'])->group(function () {
     Route::post('/branches/{branch}/create', [BranchController::class, 'storeTarget'])->name('branch.resetTarget');
 
     //noticeboard
-    Route::get('/noticeboard', [NoticeBoardController::class, 'index'])->name('noticeboard.index');
+    Route::get('/noticeboard', [NoticeBoardDownloadsController::class, 'NoticeBoard'])->name('noticeboard.index');
+    Route::get('/noticeboard', [NoticeBoardDownloadsController::class, 'DocumentDownloads'])->name('noticeboard.index');
+
+    //resources
     Route::resource('/branchreport', BranchReportController::class)->except(['edit', 'update']);
 });
 

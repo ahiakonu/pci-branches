@@ -39,7 +39,7 @@ class AdminDocumentController extends Controller
     public function store(Request $request)
     {
         $attributes = $this->FormValidation($request);
-        $attributes['status'] = 'Not Visible In App';
+        $attributes['status'] = 'Visible';
         AdminDocument::create($attributes);
 
         return back()->with(['success' => 'AdminDocument (' . $attributes['title'] . ') saved successfully ']);
@@ -55,15 +55,15 @@ class AdminDocumentController extends Controller
 
     public function update(Request $request, AdminDocument $upload)
     {
-      
+        //return $upload;
         $attributes = $request->validate([
-            'title' => ['required', Rule::unique('admin_documents', 'title', 'except', $upload->id,)]
+            'title' => ['required', Rule::unique('admin_documents', 'title')->ignore($upload->id)] //Rule::unique('admin_documents', 'title', 'except', ''.$upload->id,)
         ]);
 
         $request->validate([
             'pdf_file' => 'sometimes|mimes:pdf|max:2048',
         ]);
-   
+
         try {
 
             if ($request->has('pdf_file')) {
@@ -131,8 +131,8 @@ class AdminDocumentController extends Controller
     protected function FormValidation(Request $request): array //defalut is null, ? indeciates its optopnal
     {
         $attributes = $request->validate([
-            'title' => 'required|unique:school_policies,title',
-            'pdf_file' => 'required|mimes:pdf|max:2048',
+            'title' => 'required|unique:admin_documents,title',
+            'pdf_file' => 'required|mimes:pdf|max:3072', //3mb
         ]);
 
         // Store the file in storage\app\public folder

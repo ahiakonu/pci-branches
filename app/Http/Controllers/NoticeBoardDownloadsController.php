@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class NoticeBoardController extends Controller
+class NoticeBoardDownloadsController extends Controller
 {
-    public function index()
+    public function noticeBoard()
     {
         //
-        return view('branch.notice-board.noticeboard-index', [
+        return view('branch.notices_downloads.br-noticeboard-index', [
             //'divisions' => $this->getAllBranches()
         ]);
     }

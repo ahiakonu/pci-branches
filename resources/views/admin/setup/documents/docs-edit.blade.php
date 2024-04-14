@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="flex-shrink max-w-full px-4 w-full mb-6">
         <div class="flex-shrink max-w-full px-4 w-full md:flex md:justify-between">
-            <p class="text-xl font-bold mt-0 mb-5">Update Policy</p>
+            <p class="text-xl font-bold mt-0 mb-5">Admin Documents</p>
 
-            <x-app-layout.back-button href="{{ route('policies.index') }}" />
+            <x-app-layout.back-button href="{{ route('upload.index') }}" />
         </div>
 
 
@@ -31,11 +31,11 @@
 
 
 
-            <form class="flex flex-wrap flex-row -mx-4" method="POST" action="{{ route('policies.update', $news->id) }}"
+            <form class="flex flex-wrap flex-row -mx-4" method="POST" action="{{ route('upload.update', $document->id) }}"
                 onsubmit="return SubmitFromAlert(this,' update Upcoming event');" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                <p class="text-indigo-700 text-xl">{{ $news->title }}</p>
+                <p class="text-indigo-700 text-xl">{{ $document->title }}</p>
                 <x-app-layout-form.gray-div>
 
                   
@@ -44,19 +44,19 @@
 
                     <x-app-layout.input-div class=" md:w-1/2 ">
                         <x-app-layout-form.input input_type="text" name="title" lablename="Policy Title *"
-                            :value="old('title',$news->title)" />
+                            :value="old('title',$document->title)" />
                     </x-app-layout.input-div>
  
   
 
                     <x-app-layout.input-div class=" md:w-1/2 ">
                         <x-app-layout-form.input input_type="text" name="original" lablename="Orignal File Name"
-                            class="bg-gray-50" value=" {{ $news->original_name }} " disabled />
+                            class="bg-gray-50" value=" {{ $document->original_name }} " disabled />
                     </x-app-layout.input-div>
 
                     <x-app-layout.input-div class=" ">
                         <p class="text-lg font-bold">
-                            <x-app-svg.upload></x-app-svg.upload> Upload policy pdf file
+                            <x-app-svg.upload></x-app-svg.upload> Upload pdf file
                         </p>
                         <div class="mb-6">
                             <x-app-layout-form.upload-pdf ></x-app-layout-form.upload-pdf>
@@ -68,7 +68,7 @@
                 </x-app-layout-form.gray-div>
             
                 <div class="flex-shrink max-w-full px-4 w-full">
-                    <x-app-layout-form.button> Update Policy 
+                    <x-app-layout-form.button> Update Document 
                     </x-app-layout-form.button>
 
                     <x-app-layout-form.button-clear style="float: right" />
