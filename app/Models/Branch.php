@@ -26,6 +26,7 @@ class Branch extends Model
         'church_status',
         'g_lat',
         'g_long', 
+        'branch_pastor'
     ];
 
     

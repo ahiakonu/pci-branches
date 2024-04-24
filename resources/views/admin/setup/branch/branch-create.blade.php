@@ -40,6 +40,11 @@
                 </x-app-layout.input-div>
 
                 <x-app-layout.input-div class=" md:w-1/2 ">
+                    <x-app-layout-form.input input_type="text" name="branch_pastor" lablename="Branch Pastor *"
+                        :value="old('branch_pastor')" />
+                </x-app-layout.input-div>
+
+                <x-app-layout.input-div class=" md:w-1/2 ">
                     <x-app-layout-form.input input_type="text" name="church_address" lablename="Church Address"
                         :value="old('church_address')" input_required="false" />
                 </x-app-layout.input-div>

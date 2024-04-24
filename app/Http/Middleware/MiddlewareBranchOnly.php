@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth; 
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminsOnly
+class MiddlewareBranchOnly
 {
     /**
      * Handle an incoming request.
@@ -25,9 +24,9 @@ class AdminsOnly
                 return redirect('/profile');
             }
 
-            if ($user?->user_role === 'BRANCH_PASTOR') {
-                //Log::info('branch-pastor hit');
-                return redirect(route('dashboard.branch'));
+            if ($user?->user_role === 'SYS_ADMIN') {
+                
+                return redirect(route('dashboard'));
             }
 
             elseif ($user?->user_role === 'ZONAL_OVERSEER') {
@@ -38,12 +37,11 @@ class AdminsOnly
                 return redirect(route('dashboard.divisional'));
             }
 
-            elseif ($user?->user_role === 'SYS_ADMIN' || $user?->user_role_id === '1') {
+            elseif ($user?->user_role === 'BRANCH_PASTOR') {
                 return $next($request);
             }
         }
         // 
        abort(Response::HTTP_FORBIDDEN);
-       
     }
 }

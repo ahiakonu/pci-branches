@@ -71,7 +71,7 @@ class BranchReportController extends Controller
         }
     }
 
- 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -99,23 +99,23 @@ class BranchReportController extends Controller
      */
     public function store(Request $request)
     {
+
+        $attributes = $this->FormValidation($request);
+
+        if ($attributes['male'] + $attributes['female'] <= 0) {
+           throw ValidationException::withMessages(['errrormessage' => 'Total male + female attendance must be more than 0(zero). Process abored!']);
+        }
+
+        $sdate = (Carbon::parse($attributes['service_date'])->format('Y-m-d'));
+        if (DB::table('branch_reports')
+            ->where('service_id', $attributes['service_id'])
+            ->where('service_date', $sdate)
+            ->where('branch_id', $attributes['branch_id'])
+            ->exists()
+        ) {
+            throw ValidationException::withMessages(['errrormessage' => 'Report for selected service and date already in the system. Process abored!']);
+        }
         try {
-            $attributes = $this->FormValidation($request);
-
-            if ($attributes['male'] + $attributes['female'] <= 0) {
-                throw ValidationException::withMessages(['errrormessage' => 'Total male + female attendance must be more than 0(zero). Process abored!']);
-            }
-
-            $sdate = (Carbon::parse($attributes['service_date'])->format('Y-m-d'));
-            if (DB::table('branch_reports')
-                ->where('service_id', $attributes['service_id'])
-                ->where('service_date', $sdate)
-                ->where('branch_id', $attributes['branch_id'])
-                ->exists()
-            ) {
-                throw ValidationException::withMessages(['errrormessage' => 'Report for selected service and date already in the system. Process abored!']);
-            }
-
             BranchReport::create($attributes);
             return back()->with(['success' => 'Report saved successfully !']);
         } catch (Exception $ex) {

@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportDownloadController;
 use App\Http\Controllers\ReportGenerationController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ZonalReportController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
@@ -118,8 +119,8 @@ Route::prefix('admin')->middleware(['auth', 'adminsonly'])->group(function () {
 | Branch Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/branchdashboard', [DashboardsController::class, 'branchIndex'])->middleware(['auth', 'branch'])->name('dashboard.branch');
-Route::prefix('branch')->middleware(['auth', 'branch'])->group(function () {
+Route::get('/branchdashboard', [DashboardsController::class, 'branchIndex'])->middleware(['auth', 'branchOnly'])->name('dashboard.branch');
+Route::prefix('branch')->middleware(['auth', 'branchOnly'])->group(function () {
     Route::get('/branchreport/download', [BranchReportController::class, 'exportBranchReports'])->name('branchreport.exportBranchReports');
     Route::get('/branchreport/history', [BranchReportController::class, 'branchReportHistory'])->name('branchreport.report.history');
 
@@ -136,5 +137,38 @@ Route::prefix('branch')->middleware(['auth', 'branch'])->group(function () {
     //resources
     Route::resource('/branchreport', BranchReportController::class)->except(['edit', 'update']);
 });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Zonal Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/zonal/dashboard', [ZonalReportController::class, 'zonalIndex'])->middleware(['auth', 'zonalOnly'])->name('dashboard.zonal');
+Route::prefix('zonal')->middleware(['auth', 'zonalOnly'])->group(function () {
+    Route::get('/zone/index', [ZonalReportController::class, 'index'])->name('zonal.zone.index');
+    Route::get('/zone/create', [ZonalReportController::class, 'create'])->name('zonal.zone.create');
+    Route::get('/zone/{zonalreport}/show', [ZonalReportController::class, 'show'])->name('zonal.zone.show');
+    Route::post('/zone/store', [ZonalReportController::class, 'store'])->name('zonal.zone.store');
+
+    Route::get('/branch/reports', [ZonalReportController::class, 'branchReports'])->name('zonal.branch.reports');
+    Route::get('/branch/reports/show', [ZonalReportController::class, 'branchReportDetails'])->name('zonal.branch.show');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Divisional Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/divisionaldashboard', [DashboardsController::class, 'divisionalIndex'])->middleware(['auth', 'divisionalOnly'])->name('dashboard.divisional');
+
+
+
+
+
+
 
 require __DIR__ . '/auth.php';

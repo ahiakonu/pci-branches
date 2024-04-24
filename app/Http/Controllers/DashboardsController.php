@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminDocument;
 use App\Models\Branch;
 use App\Models\BranchReport;
 use App\Models\BranchTarget;
@@ -66,7 +67,8 @@ class DashboardsController extends Controller
                 'dash' => $this->branchDashboard(),
                 'target' => BranchTarget::where('branch_id', $this->branchID())->get(),
                 'branch' => $this->getBranchInfo(),
-                'reports_top' => $this->branchTop20()
+                'reports_top' => $this->branchTop20(),
+                'downloads' => AdminDocument::where('status','Visible')->count()
             ]
         );
     }
@@ -98,13 +100,14 @@ class DashboardsController extends Controller
     {
         $data = [];
         $data['reports_count'] = DB::table('branch_reports')->where('branch_id', $this->branchID())->whereYear('service_date', now()->year)->count();
-        $data['sum_income'] = (object)DB::select('select COALESCE(SUM(tithe + first_offering + second_offering + thanksgiving + special_offering + cell_offering),0) AS sum_income from `branch_reports` where branch_id = ? and MONTH(service_date) = ?', [$this->branchID(), now()->month])[0];
-        $data['avg_attendance'] = DB::select('select COALESCE(AVG(male + female + children),0) AS avg_attendance from `branch_reports` where branch_id = ? and MONTH(service_date) = ? and service_id = ?', [$this->branchID(), now()->month, '100'])[0];
+        $data['sum_income'] = (object)DB::select('select COALESCE(SUM(tithe + first_offering + second_offering + thanksgiving + special_offering + cell_offering),0) AS sum_income from `branch_reports` where branch_id = ? and MONTH(service_date) = ? and YEAR(service_date) = ?', [$this->branchID(), now()->month, now()->year])[0];
+        $data['avg_attendance'] = DB::select('select COALESCE(AVG(male + female + children),0) AS avg_attendance from `branch_reports` where branch_id = ? and MONTH(service_date) = ? and service_id = ? and YEAR(service_date) = ?', [$this->branchID(), now()->month, '100',now()->year])[0];
 
         //table('branch_reports')->where('branch_id', $this->branchID())->whereMonth()
         //dd($data);       $data['branches_count'] = DB::table('branches')->where('church_status', 'Active')->count();
         return $data;
     }
+
     protected function branchID()
     {
         return auth()->user()->user_role_id;
@@ -113,4 +116,7 @@ class DashboardsController extends Controller
     {
         return Branch::findOrFail($this->branchID());
     }
+
+
+   
 }

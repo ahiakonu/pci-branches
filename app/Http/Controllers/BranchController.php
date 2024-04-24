@@ -85,6 +85,7 @@ class BranchController extends Controller
             'church_status' => 'required',
             'g_lat' => 'nullable',
             'g_long' => 'nullable',
+            'branch_pastor' => 'required'
         ]);
     }
 

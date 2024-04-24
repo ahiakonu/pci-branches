@@ -6,9 +6,7 @@ use App\Http\Traits\GlobalValuesCore;
 use App\Models\Branch;
 use App\Models\BranchProperty;
 use App\Models\BranchReport;
-use App\Models\Division;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ReportGenerationController extends Controller

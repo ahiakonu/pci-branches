@@ -37,6 +37,15 @@ class AppServiceProvider extends ServiceProvider
             return $user->user_role === 'BRANCH_PASTOR';
         });
 
+        Gate::define('zonal', function (User $user) {
+            return $user->user_role === 'ZONAL_OVERSEER';
+        });
+
+        Gate::define('divisional', function (User $user) {
+            return $user->user_role === 'DIVISIONAL_OVERSEER';
+        });
+
+
 
     }
 }

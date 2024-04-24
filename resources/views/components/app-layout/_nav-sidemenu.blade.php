@@ -19,6 +19,20 @@
             </a>
         </div>
 
+        @can('zonal')
+            @php
+                $url = '/' . Route::current()->uri;
+                $selected = 0;
+                if (str_contains($url, '/zonal/dashboard')) {
+                    $selected = 1;
+                }
+                elseif (str_contains($url, '/zonal/zone/') || str_contains($url, '/zone/branch/')) {
+                    $selected = 2;
+                } elseif (str_contains($url, '/zonal/setup/')) {
+                    $selected = 3;
+                }
+            @endphp
+        @endcan
         @can('branch')
             @php
                 $url = '/' . Route::current()->uri;
@@ -27,7 +41,7 @@
                     $selected = 1;
                 } elseif (str_contains($url, '/branchreport') || str_contains($url, '/propertyreport')) {
                     $selected = 2;
-                } elseif (str_contains($url, '/noticedownload') ) {
+                } elseif (str_contains($url, '/noticedownload')) {
                     $selected = 3;
                 }
             @endphp
@@ -45,6 +59,7 @@
                 }
             @endphp
         @endcan
+
 
 
         <!-- Sidebar menu -->
@@ -87,11 +102,31 @@
                 </x-app-layout.sm-lidropdown>
 
                 <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="Notices & Downloads">
-                    <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard')}}" />
-                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="{{ route('noticeboard.documentDownloads')}}" />
+                    <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard') }}" />
+                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="{{ route('noticeboard.documentDownloads') }}" />
                 </x-app-layout.sm-lidropdown>
             @endcan
             <!-- //BRANCH MENUS -->
+
+            <!-- ZONAL MENUS -->
+            @can('zonal')
+                <x-app-layout.sm-li lable="Dashboard" link="/zonal/dashboard">
+                    <x-app-svg.dashboard />
+                </x-app-layout.sm-li>
+
+                <x-app-layout.sm-lidropdown sel_index="2" sgv="Utilities" lable="Reporting">
+                    <x-app-layout.sm-ul-li lable="Zonal Report" link="{{route('zonal.zone.index')}} " />
+                    <x-app-layout.sm-ul-li lable="Branch Reports" link="{{route('zonal.branch.reports')}} " />
+
+                </x-app-layout.sm-lidropdown>
+
+                <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="Notices & Downloads">
+                    <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard') }}" />
+                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="{{ route('noticeboard.documentDownloads') }}" />
+                </x-app-layout.sm-lidropdown>
+            @endcan
+            <!-- //BRANCH MENUS -->
+
 
 
 

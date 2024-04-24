@@ -10,6 +10,10 @@ trait GlobalValuesCore{
     {
         return DB::select('select distinct YEAR(service_date) as reportyear from branch_reports');
     }
+    public  function getZoneReportYear()
+    {
+        return DB::select('select distinct report_year as reportyear from zonal_reports order by report_year');
+    }
     public  function getDivisions()
     {
         return Division::orderBy('division_name')->get();

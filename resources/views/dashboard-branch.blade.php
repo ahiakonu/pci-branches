@@ -15,75 +15,82 @@
             </div>
 
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/3">
+            {{-- Reports --}}
+            <div class="flex-shrink max-w-full px-4 w-full sm:w-1/3 lg:w-1/3 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                    <h3 class="text-base font-bold mb-2">Reports Submitted in {{ now()->year }}</h3>
 
-
-                <div class="bg-pink-500 text-pink-100 rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
+                    <div class="relative text-center">
+                        <h2 class="text-3xl font-bold mb-4">{{ $dash['reports_count'] }}</h2>
                     </div>
 
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold">Reports Submitted in {{ now()->year }}</h3>
+                    <div class="flex flex-row justify-between w-full">
+
+                        <div class="flex items-center text-green-500">
+                            <a class="text-sm mb-3 hover:text-indigo-500 " href="/branch/branchreport">View more..
+                                </span></a>
+
                         </div>
                     </div>
+
+
+                    <!-- bg circle -->
+                    <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                        <div class="bg-red-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-red-500/10"></div>
+                    </div>
+                    <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                        <div class="bg-red-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-red-500/10"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{--   --}}
+            <div class="flex-shrink max-w-full px-4 w-full sm:w-1/3 lg:w-1/3 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                    <h3 class="text-base font-bold mb-2">Message Board</h3>
+
+                    <!-- target -->
                     <div class="relative text-center">
-                        <h4 class="font-bold text-2xl text-white mb-3"> {{ $dash['reports_count'] }} </h4>
-                        <a class="text-sm mb-3 hover:text-indigo-500 " href="/branch/branchreport">View more..
+                        <h2 class="text-3xl font-bold mb-4"></h2>
+                        <a class="text-sm  hover:underline " href="">View more.. </span></a>
+                    </div>
+
+                    <!-- bg circle -->
+                    <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                        <div class="bg-green-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-indigo-500/10">
+                        </div>
+                    </div>
+                    <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                        <div class="bg-green-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-indigo-500/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{--   --}}
+            <div class="flex-shrink max-w-full px-4 w-full sm:w-1/3 lg:w-1/3 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                    <h3 class="text-base font-bold mb-2">Admin Documents</h3>
+
+                    <!-- target -->
+                    <div class="relative text-center">
+                        <h2 class="text-3xl font-bold mb-4"> {{ $downloads }}</h2>
+                        <a class="text-sm  hover:underline " href=" {{route('noticeboard.documentDownloads')}} ">View more..
                             </span></a>
                     </div>
-                </div>
-            </div>
 
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/3">
-                <div class="bg-indigo-500 text-indigo-100 rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
-                    </div>
 
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold">Unread messages</h3>
-                        </div>
+                    <!-- bg circle -->
+                    <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                        <div class="bg-pink-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-indigo-500/10"></div>
                     </div>
-                    <div class="relative text-center">
-                        <h4 class="font-bold text-2xl text-white mb-3">--</h4>
-                        <p class="text-sm mb-3">View more..</span></p>
+                    <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                        <div class="bg-pink-500 opacity-10 w-36 h-36 rounded-full shadow-lg shadow-indigo-500/10"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/3">
-                <div class="bg-yellow-500 text-white rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
-                    </div>
-
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold">Tickets</h3>
-                        </div>
-                    </div>
-                    <div class="relative text-center">
-                        <h4 class="font-bold text-2xl text-white mb-3">--</h4>
-                        <p class="text-sm mb-3">View more..</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
@@ -93,7 +100,7 @@
                 $income = (float) $tag->income;
                 $income_sum = $dash['sum_income']->sum_income;
                 $percent_income = round(100 * ($income_sum / $income), 2);
-                $display_inc = $percent_income >100 ? 100 : $percent_income;
+                $display_inc = $percent_income > 100 ? 100 : $percent_income;
 
                 // echo $percent_income;
 
@@ -112,7 +119,7 @@
                 $attendance = (int) $tag->attendance;
                 $attendance_sum = $dash['avg_attendance']->avg_attendance;
                 $percent_attendance = 0;
-                $display_att =0;
+                $display_att = 0;
             }
 
         @endphp
@@ -174,7 +181,8 @@
                     </div> --}}
                     </div>
                     <div class="relative">
-                        <h4 class="font-bold text-2xl text-pink-500 mb-3">{{ (int) $attendance_sum }} ({{ $percent_attendance }}%)</h4>
+                        <h4 class="font-bold text-2xl text-pink-500 mb-3">{{ (int) $attendance_sum }}
+                            ({{ $percent_attendance }}%)</h4>
                         <div class="w-full h-4 bg-pink-100 rounded-full mt-2">
                             <div class="h-full text-center text-xs text-white bg-pink-500 rounded-full"
                                 style="width:{{ $display_att }}%">
@@ -221,9 +229,9 @@
                             <x-app-layout-table.td>
                                 {{ $tt->service_date }} </x-app-layout-table.td>
                             <x-app-layout-table.td> {{ $tt->attendance }} </x-app-layout-table.td>
-                            <x-app-layout-table.td> <span
-                                class="text-sm text-red-500">{{ $tt->currency }}</span> </x-app-layout-table.td>
-                            <x-app-layout-table.td>  @fmoney($tt->total_income)</x-app-layout-table.td>
+                            <x-app-layout-table.td> <span class="text-sm text-red-500">{{ $tt->currency }}</span>
+                            </x-app-layout-table.td>
+                            <x-app-layout-table.td> @fmoney($tt->total_income)</x-app-layout-table.td>
                             <x-app-layout-table.td> @fmoney($tt->amalgamation)</x-app-layout-table.td>
                             <x-app-layout-table.td> {{ $tt->service }} </x-app-layout-table.td>
                             <x-app-layout-table.td> {{ $tt->theme_and_sermon }} </x-app-layout-table.td>
