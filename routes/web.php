@@ -82,7 +82,7 @@ Route::prefix('admin')->middleware(['auth', 'adminsonly'])->group(function () {
     //branch report view & edit
     Route::get('/branchreport/{id}/edit', [BranchReportController::class, 'adminEdit'])->name('admin.branchreport.edit');
     Route::patch('/branchreport/{branchreport}/edit', [BranchReportController::class, 'adminUpdate'])->name('admin.branchreport.update');
-    Route::get('/branchreport/{id}/show', [BranchReportController::class, 'adminShow'])->name('admin.branchreport.show');
+    Route::get('/branchreport/{branchreport}/show', [BranchReportController::class, 'adminShow'])->name('admin.branchreport.show');
 
 
 
@@ -108,6 +108,10 @@ Route::prefix('admin')->middleware(['auth', 'adminsonly'])->group(function () {
 
     Route::get('/reports/lfu', [ReportGenerationController::class, 'lfuReport'])->name('admin.report.lfuReport');
     Route::get('/reports/ajax/lfu', [ReportDownloadController::class, 'exportLfuReport'])->name('admin.exportLfuReport');
+
+    Route::get('/reports/zonalreports', [ReportGenerationController::class, 'zoneReports'])->name('admin.report.zoneReports');
+    Route::get('/reports/ajax/zonalreports', [ReportDownloadController::class, 'exportZonalReports'])->name('admin.exportZonalReports');
+    
 
     Route::resource('/setup/upload', AdminDocumentController::class);
 });
@@ -153,7 +157,12 @@ Route::prefix('zonal')->middleware(['auth', 'zonalOnly'])->group(function () {
     Route::post('/zone/store', [ZonalReportController::class, 'store'])->name('zonal.zone.store');
 
     Route::get('/branch/reports', [ZonalReportController::class, 'branchReports'])->name('zonal.branch.reports');
-    Route::get('/branch/reports/show', [ZonalReportController::class, 'branchReportDetails'])->name('zonal.branch.show');
+    Route::get('/branch/reports/show', [ZonalReportController::class, 'branchReportShow'])->name('zonal.branch.show');
+    Route::get('/branch/reports/show/{branchreport}/detail', [ZonalReportController::class, 'branchReportDetailsShow'])->name('zonal.branch.show.detail');
+    Route::get('/branch/reports/show/{branchreport}/edit', [ZonalReportController::class, 'branchReportDetailsEdit'])->name('zonal.branch.show.edit');
+    Route::patch('/branchreport/{branchreport}/edit', [BranchReportController::class, 'adminUpdate'])->name('zonal.branchreport.update');
+
+    Route::get('/noticedownload/downloads', [NoticeBoardDownloadsController::class, 'documentDownloads'])->name('zonal.noticeboard.documentDownloads');
 });
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\GlobalValuesCore;
 use App\Models\Branch;
 use App\Models\BranchReport;
+use App\Models\Service;
 use App\Models\ZonalReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -104,7 +105,7 @@ class ZonalReportController extends Controller
                 'yesno' => ['YES', 'NO'],
                 'incdec' => ['INCREASED', 'DECREASED', 'NO CHANGE'],
                 'church' => Branch::findOrFail(request()->get('branch')),
-                'findata' => $this->ajaxFinRecord($branch,$year,$month )
+                'findata' => $this->ajaxFinRecord($branch, $year, $month)
             ]
         );
     }
@@ -116,7 +117,7 @@ class ZonalReportController extends Controller
             [
                 'report' => $zonalreport,
                 'church' => Branch::findOrFail($zonalreport->branch_id),
-                'findata'=> $this->ajaxFinRecord($zonalreport->branch_id,$zonalreport->report_year,$zonalreport->month_key)
+                'findata' => $this->ajaxFinRecord($zonalreport->branch_id, $zonalreport->report_year, $zonalreport->month_key)
             ]
         );
     }
@@ -172,7 +173,7 @@ class ZonalReportController extends Controller
     }
 
     ///AJAX CALLS////
-    protected function ajaxFinRecord($branch,$year,$month)
+    protected function ajaxFinRecord($branch, $year, $month)
     {
         return BranchReport::selectRaw('sum(first_offering) as first_offering, sum(tithe) as tithe,sum(amalgamation) as amalg')
             ->where('branch_id', $branch)
@@ -295,14 +296,121 @@ class ZonalReportController extends Controller
         }
     }
 
-    
-    public function branchReportDetails(Request $request)
+
+    public function branchReportShow(Request $request)
     {
         return
-            view('zonal.br.zone-branch-report-index', [
+            view('zonal.br.zone-branch-report-detail-index', [
                 'months' => $this->getMonths(),
                 'years' => $this->getReportYear(),
-                'reports' => $this->ReportSummary($request)
+                'branches' => $this->zoneBranches(),
+                'reports' => $this->ReportDetails($request)
             ]);
+    }
+
+    public function ReportDetails(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'branch' => 'required',
+                'year' => 'required',
+                'month' => 'nullable',
+            ]);
+
+
+            $res = [];
+            if ($data['month'] == '') {
+                $res =  BranchReport::select(
+                    'branch_reports.id',
+                    'br.church_name',
+
+                    'service_date',
+                    'ss.service',
+                    'theme_and_sermon',
+                    'female',
+                    'male',
+                    'name_of_preacher',
+                    'tithe',
+                    'first_offering',
+                    'amalgamation',
+                    'tithe',
+                    'first_offering',
+                    'second_offering',
+                    'thanksgiving',
+                    'special_offering',
+                    'cell_offering',
+                    'cells',
+                    'cells_met',
+                    'report_by',
+                    'br.currency'
+                )
+                    ->join('branches as br', 'branch_reports.branch_id', '=', 'br.id')
+                    ->join('services as ss', 'branch_reports.service_id', '=', 'ss.id')
+                    ->where('branch_reports.branch_id', $data['branch'])
+                    ->whereYear('service_date', $data['year'])
+                    ->orderBy('church_name')->orderBy('service_date', 'desc')
+                    ->get(); //
+            } else {
+                $res =  BranchReport::select(
+                    'branch_reports.id',
+                    'br.church_name',
+                    'service_date',
+                    'ss.service',
+                    'theme_and_sermon',
+                    'female',
+                    'male',
+                    'name_of_preacher',
+                    'tithe',
+                    'first_offering',
+                    'amalgamation',
+                    'tithe',
+                    'first_offering',
+                    'second_offering',
+                    'thanksgiving',
+                    'special_offering',
+                    'cell_offering',
+                    'cells',
+                    'cells_met',
+                    'report_by',
+                    'br.currency'
+                )
+                    ->join('branches as br', 'branch_reports.branch_id', '=', 'br.id')
+                    ->join('services as ss', 'branch_reports.service_id', '=', 'ss.id')
+                    ->where('branch_reports.branch_id', $data['branch'])
+                    ->whereYear('service_date', $data['year'])
+                    ->whereMonth('service_date', $data['month'])
+                    ->orderBy('church_name')->orderBy('service_date', 'desc')
+                    ->get(); //
+
+            }
+
+            return $res;
+        } catch (\Exception $exception) {
+            Log::error('  - error: ' . $exception->getMessage());
+        }
+    }
+
+
+    public function branchReportDetailsShow(BranchReport $branchreport)
+    {
+        return view(
+            'branch.services.br-service-show',
+            [
+                'services' => Service::all(),
+                'report' => $branchreport
+            ]
+        );
+    }
+
+
+    public function branchReportDetailsEdit(string $id)
+    {
+        return view(
+            'zonal.br.br-service-edit',
+            [
+                'services' => Service::all(),
+                'report' => BranchReport::findOrFail($id)
+            ]
+        );
     }
 }

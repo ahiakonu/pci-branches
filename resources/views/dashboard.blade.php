@@ -10,51 +10,61 @@
                 <p class="text-xl font-bold mt-3 mb-5">Admin Dashboard</p>
             </div>
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/4">
-                <div class="bg-gray-500 text-blue-100 rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
+
+
+            {{-- Branch Reports --}}
+            <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                    <h3 class="text-base font-bold mb-2">Branch Reports In {{ $thisyear }}</h3>
+
+                    <div class="relative text-center">
+                        <h2 class="text-3xl font-bold mb-4">{{ $dash['reports_count'] }} </h2>
                     </div>
 
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold text-white">Branch Reports In {{ $thisyear }} </h3>
+                    <div class="flex flex-row justify-between w-full">
+                        <div class="flex items-center text-black-500">
+                            <a class="text-sm mb-3 hover:text-gray-500 hover:underline"
+                                href="/admin/reports/branchreports">View
+                                more..
+                                </span></a>
                         </div>
                     </div>
-                    <div class="relative text-center">
-                        <h4 class="font-bold text-2xl text-white mb-3"> {{ $dash['reports_count'] }} </h4>
-                        <a class="text-sm mb-3 hover:text-blue-500 text-white" href="/admin/reports/branchreports">View
-                            more..
-                            </span></a>
+
+                    <!-- bg circle -->
+                    <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                        <div class="bg-gray-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-gray-500/10"></div>
+                    </div>
+                    <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                        <div class="bg-gray-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-gray-500/10"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/4">
 
+            {{-- Zonal Reports --}}
+            <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                    <h3 class="text-base font-bold mb-2">Zonal Reports In {{ $thisyear }}</h3>
 
-                <div class="bg-pink-500 text-pink-100 rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
+                    <div class="relative text-center">
+                        <h2 class="text-3xl font-bold mb-4">{{ $dash['zone_reports_count'] }}</h2>
                     </div>
 
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold">Zonal Reports In {{ $thisyear }} </h3>
+                    <div class="flex flex-row justify-between w-full">
+                        <div class="flex items-center text-black-500">
+                            <a class="text-sm mb-3 hover:text-red-500 hover:underline"
+                                href="{{ route('admin.report.zoneReports') }}">View
+                                more..
+                                </span></a>
                         </div>
                     </div>
-                    <div class="relative text-center">
-                        <h3 class="font-bold text-2xl text-white mb-3"> figure here </h3>
-                        <a class="text-sm mb-3 hover:text-indigo-500 "
-                            href="{{ route('admin.report.branchReports') }}">View more.. </a>
+
+                    <!-- bg circle -->
+                    <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                        <div class="bg-red-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-red-500/10"></div>
+                    </div>
+                    <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                        <div class="bg-red-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-red-500/10"></div>
                     </div>
                 </div>
             </div>
@@ -81,28 +91,32 @@
                     </div>
                 </div>
             </div>
+ 
 
-            <div class="flex-shrink max-w-full px-4 w-full lg:w-1/4">
-                <div class="bg-yellow-500 text-yellow-100 rounded-lg shadow-lg p-6 mb-6 relative overflow-hidden">
-                    <!-- circle -->
-                    <div class="absolute ltr:-right-10 rtl:-left-10 -top-10">
-                        <div class="bg-white opacity-10 w-36 h-36 rounded-full"></div>
-                    </div>
-                    <div class="absolute ltr:-right-8 rtl:-left-8 -top-8">
-                        <div class="bg-white opacity-20 w-24 h-24 rounded-full"></div>
-                    </div>
+        {{-- Churches Reports --}}
+        <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                <h3 class="text-base font-bold mb-2">Active Churches</h3>
 
-                    <div class="flex flex-row justify-between pb-3">
-                        <div class="flex flex-col">
-                            <h3 class="text-base font-bold text-white">Active Churches</h3>
-                        </div>
+                <div class="relative text-center">
+                    <h2 class="text-3xl font-bold mb-4">{{ $dash['active_churches'] }} </h2>
+                </div>
+
+                <div class="flex flex-row justify-between w-full">
+                    <div class="flex items-center text-black-500">
+                        <a class="text-sm mb-3 hover:text-yellow-500 hover:underline"
+                            href="{{ route('admin.report.branchesReport') }}">View
+                            more..
+                            </span></a>
                     </div>
-                    <div class="relative text-center">
-                        <h4 class="font-bold text-2xl text-white mb-3"> {{ $dash['active_churches'] }} </h4>
-                        <a class="text-sm mb-3 hover:text-indigo-500 text-white"
-                            href="{{ route('admin.report.branchesReport') }}">View more..
-                        </a>
-                    </div>
+                </div>
+
+                <!-- bg circle -->
+                <div class="absolute ltr:-right-16 rtl:-left-16 -top-16">
+                    <div class="bg-yellow-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-yellow-500/10"></div>
+                </div>
+                <div class="absolute ltr:-right-4 rtl:-left-4 -top-24">
+                    <div class="bg-yellow-500 opacity-20 w-36 h-36 rounded-full shadow-lg shadow-yellow-500/10"></div>
                 </div>
             </div>
         </div>

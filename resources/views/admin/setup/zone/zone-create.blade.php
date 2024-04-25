@@ -1,16 +1,16 @@
 <x-app-layout>
     <div class="flex-shrink max-w-full px-4 w-full mb-6">
         <div class="flex-shrink max-w-full px-4 w-full md:flex md:justify-between">
-            <p class="text-xl font-bold mt-0 mb-5">Create Division</p>
+            <p class="text-xl font-bold mt-0 mb-5">Create Zone</p>
 
-            <x-app-layout.back-button href="/util/zones" />
+            <x-app-layout.back-button href="{{route('zones.index')}}" />
         </div>
 
 
         <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full">
 
             <div class="md:flex md:justify-between">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300 ">New Division</h2>
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-300 ">New Zone</h2>
             </div>
 
 

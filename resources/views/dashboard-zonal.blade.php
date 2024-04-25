@@ -37,7 +37,7 @@
                                 @if ($branches != null)
                                     @foreach ($branches as $evt)
                                         <tr>
-                                            <x-app-layout-table.td> {{ $evt->reports }}  {{ $evt->church_name }}</x-app-layout-table.td>
+                                            <x-app-layout-table.td> {{ $evt->church_name }}</x-app-layout-table.td>
                                             <x-app-layout-table.td> {{ $evt->church_location }} </x-app-layout-table.td>
                                             <x-app-layout-table.td> {{ $evt->branch_pastor }} </x-app-layout-table.td>
                                             <x-app-layout-table.td> {{ $evt->church_status }} </x-app-layout-table.td>
@@ -48,7 +48,7 @@
                                                 <div class="flex space-x-1">
                                                  
                                                         <a href="javascript:;"  
-                                                            onclick="SumitEdit('View {{ ucwords($evt->title) }} ?','/school/policies/{{ $evt->id }}/edit')"
+                                                            onclick="SumitEdit('View {{ ucwords($evt->title) }} ?','/zonal/branch/reports/show?branch={{$evt->id}}&year={{now()->year}}')"
                                                             class="py-1 px-4 inline-block text-sm text-center mb-3 rounded leading-5
                                                             text-indigo-500 bg-transparent border border-indigo-500 hover:text-gray-100
                                                             hover:bg-indigo-500 hover:ring-0 hover:border-indigo-500 focus:text-gray-100

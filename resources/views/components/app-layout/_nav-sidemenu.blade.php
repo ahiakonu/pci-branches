@@ -25,10 +25,9 @@
                 $selected = 0;
                 if (str_contains($url, '/zonal/dashboard')) {
                     $selected = 1;
-                }
-                elseif (str_contains($url, '/zonal/zone/') || str_contains($url, '/zone/branch/')) {
+                } elseif (str_contains($url, '/zonal/zone/') || str_contains($url, '/zonal/branch/reports') || str_contains($url, '/zonal/branch/reports/show')) {
                     $selected = 2;
-                } elseif (str_contains($url, '/zonal/setup/')) {
+                } elseif (str_contains($url, '/zonal/noticedownload/downloads')) {
                     $selected = 3;
                 }
             @endphp
@@ -78,6 +77,7 @@
                     <x-app-layout.sm-ul-li lable="Branch Properties" link="/admin/reports/branchproperty" />
                     <x-app-layout.sm-ul-li lable="Financial Report" link="/admin/reports/finance" />
                     <x-app-layout.sm-ul-li lable="Cell Report" link="/admin/reports/lfu" />
+                    <x-app-layout.sm-ul-li lable="Zonal Report" link="/admin/reports/zonalreports" />
                 </x-app-layout.sm-lidropdown>
                 <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="System Settings">
                     <x-app-layout.sm-ul-li lable="Document Uploads" link="/admin/setup/upload" />
@@ -115,14 +115,17 @@
                 </x-app-layout.sm-li>
 
                 <x-app-layout.sm-lidropdown sel_index="2" sgv="Utilities" lable="Reporting">
-                    <x-app-layout.sm-ul-li lable="Zonal Report" link="{{route('zonal.zone.index')}} " />
-                    <x-app-layout.sm-ul-li lable="Branch Reports" link="{{route('zonal.branch.reports')}} " />
+                    <x-app-layout.sm-ul-li lable="Zonal Report" link="/zonal/zone/index" />
+                    <x-app-layout.sm-ul-li lable="Branch Report - Summary"
+                        link="/zonal/branch/reports?year={{ now()->year }}&month={{ now()->month }}" />
+                    <x-app-layout.sm-ul-li lable="Branch Report - Details" link="/zonal/branch/reports/show" />
 
                 </x-app-layout.sm-lidropdown>
 
                 <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="Notices & Downloads">
-                    <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard') }}" />
-                    <x-app-layout.sm-ul-li lable="Admin Downloads" link="{{ route('noticeboard.documentDownloads') }}" />
+                    {{-- <x-app-layout.sm-ul-li lable="Notice Board" link="{{ route('noticeboard.noticeBoard') }}" /> --}}
+                    <x-app-layout.sm-ul-li lable="Admin Downloads"
+                        link="/zonal/noticedownload/downloads" />
                 </x-app-layout.sm-lidropdown>
             @endcan
             <!-- //BRANCH MENUS -->

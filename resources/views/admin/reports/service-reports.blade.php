@@ -112,11 +112,14 @@
                     <x-app-layout-table.th lablename="Month_&_Theme" />
                     <x-app-layout-table.th lablename="Attd" />
                     <x-app-layout-table.th lablename="Preacher" />
+                    <x-app-layout-table.th lablename="Cur" />
                     <x-app-layout-table.th lablename="Tithe" />
-                    <x-app-layout-table.th lablename="1st Offering" />
+                    <x-app-layout-table.th lablename="1st_Offering" />
                     <x-app-layout-table.th lablename="Amalgamation" />
-                    <x-app-layout-table.th lablename="Total Income" />
-                    <x-app-layout-table.th lablename="Submited By" />
+                    <x-app-layout-table.th lablename="Total_Income" />
+                    <x-app-layout-table.th lablename="Cells" />
+                    <x-app-layout-table.th lablename="Cell_Offering" />
+                    <x-app-layout-table.th lablename="Submited_By" />
                     <x-app-layout-table.th data-sortable="false" lablename="Actions__" />
 
                 </x-app-layout-table.thead>
@@ -138,24 +141,23 @@
                                 </x-app-layout-table.td>
                                 <x-app-layout-table.td>{{ $report->name_of_preacher }} </x-app-layout-table.td>
                                 <x-app-layout-table.td> <span
-                                        class="text-sm text-red-500">{{ $report->currency }}</span>@fmoney($report->tithe)
+                                        class="text-sm text-red-500">{{ $report->currency }}</span>
                                 </x-app-layout-table.td>
+                                <x-app-layout-table.td> @fmoney($report->tithe) </x-app-layout-table.td>
 
-                                <x-app-layout-table.td> <span
-                                        class="text-sm text-red-500">{{ $report->currency }}</span>@fmoney($report->first_offering)
-                                </x-app-layout-table.td>
-                                <x-app-layout-table.td><span
-                                        class="text-sm text-red-500">{{ $report->currency }}</span>@fmoney($report->amalgamation)
-                                </x-app-layout-table.td>
+                                <x-app-layout-table.td> @fmoney($report->first_offering) </x-app-layout-table.td>
+                                <x-app-layout-table.td> @fmoney($report->amalgamation) </x-app-layout-table.td>
                                 <x-app-layout-table.td>
-                                    <span class="text-sm text-red-500">{{ $report->currency }}</span>@fmoney($report->tithe + $report->first_offering + $report->second_offering + $report->thanksgiving + $report->special_offering + $report->cell_offering)
+                                    </span>@fmoney($report->tithe + $report->first_offering + $report->second_offering + $report->thanksgiving + $report->special_offering + $report->cell_offering)
                                 </x-app-layout-table.td>
+                                <x-app-layout-table.td>{{ $report->cells }} </x-app-layout-table.td>
+                                <x-app-layout-table.td> @fmoney($report->cell_offering) </x-app-layout-table.td>
                                 <x-app-layout-table.td>{{ $report->report_by }} </x-app-layout-table.td>
                                 <x-app-layout-table.td>
                                     <div class="flex">
                                         <x-app-layout.tooltip-header>
                                             <a x-on:mouseover="tooltips = true" x-on:mouseleave="tooltips = false"
-                                            href="{{ route('admin.branchreport.show', $report->id) }}"
+                                                href="{{ route('admin.branchreport.show', $report->id) }}"
                                                 class="inline-block ltr:mr-2 rtl:ml-2 hover:text-green-500">
                                                 <x-app-svg.openfolder />
                                                 <x-app-layout.tooltip-details tooltip_label="view" />

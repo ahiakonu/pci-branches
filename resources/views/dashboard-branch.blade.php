@@ -158,27 +158,7 @@
                         <div class="flex flex-col">
                             <h3 class="text-base font-bold">Weekly Attendance</h3>
                         </div>
-                        {{--    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = ! open"
-                            class="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors duration-200 focus:outline-none hover:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                class="w-6 h-6 bi bi-three-dots" viewBox="0 0 16 16">
-                                <path
-                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z">
-                                </path>
-                            </svg>
-                        </button>
-                        <div x-show="open" @click.away="open = false"
-                            class="origin-top-right absolute ltr:right-0 rtl:left-0 rounded rounded-t-non bg-white dark:bg-gray-800 z-10 rounded border border-gray-200 dark:border-gray-700"
-                            style="min-width: 12rem; display: none;">
-                            <a class="block px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-gray-900 dark:hover:bg-opacity-20 dark:focus:bg-gray-900"
-                                href="#">Daily</a>
-                            <a class="block px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-gray-900 dark:hover:bg-opacity-20 dark:focus:bg-gray-900"
-                                href="#">Weekly</a>
-                            <a class="block px-3 py-2 hover:bg-gray-100 focus:bg-gray-100 dark:hover:bg-gray-900 dark:hover:bg-opacity-20 dark:focus:bg-gray-900"
-                                href="#">Yearly</a>
-                        </div>
-                    </div> --}}
+                        
                     </div>
                     <div class="relative">
                         <h4 class="font-bold text-2xl text-pink-500 mb-3">{{ (int) $attendance_sum }}

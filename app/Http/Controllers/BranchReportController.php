@@ -166,12 +166,12 @@ class BranchReportController extends Controller
 
     public function show(BranchReport $branchreport)
     {
-
+ 
         return view(
             'branch.services.br-service-show',
             [
                 'services' => Service::all(),
-                'report' => $branchreport //BranchReport::findOrFail($id)
+                'report' => $branchreport  
             ]
         );
     }
@@ -180,6 +180,7 @@ class BranchReportController extends Controller
      */
     public function adminShow(BranchReport $branchreport)
     {
+       //return $branchreport;
         return view(
             'branch.services.br-service-show',
             [

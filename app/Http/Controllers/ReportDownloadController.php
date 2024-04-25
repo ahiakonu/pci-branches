@@ -7,6 +7,7 @@ use App\Exports\AdminBranchesReport;
 use App\Exports\AdminBranchPropertyReport;
 use App\Exports\AdminBranchReportsAllExport;
 use App\Exports\AdminFinanceReport;
+use App\Exports\AdminZonalReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -62,4 +63,17 @@ class ReportDownloadController extends Controller
        
         return Excel::download(new AdminBranchPropertyReport($div_id,$status), 'branches-property' . $status. '.xlsx');
     }
+
+
+    public function exportZonalReports(Request $request)
+    {
+         
+        $data = $request->all();
+        $montt = $data['down_month'] == '' ? 0 : intval($data['down_month']);
+        return Excel::download(new AdminZonalReport(intval($data['down_year']), $montt, $data['down_division']), 'zonal-all-' . $data['down_year'] . '.xlsx');
+        
+    }
+
+
+
 }

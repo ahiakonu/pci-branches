@@ -6,6 +6,7 @@ use App\Http\Traits\GlobalValuesCore;
 use App\Models\Branch;
 use App\Models\BranchProperty;
 use App\Models\BranchReport;
+use App\Models\ZonalReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -376,7 +377,7 @@ class ReportGenerationController extends Controller
             'reportdata' => $this->LFUReportAll($request)
         ]);
     }
-    public function LFUReportAll(Request $request)
+    protected function LFUReportAll(Request $request)
     {
         try {
             $data = $request->validate([
@@ -416,6 +417,84 @@ class ReportGenerationController extends Controller
         }
     }
 
+
+    //ZONE REPORTS
+
+    public function zoneReports(Request $request)
+    {
+        return
+            view('admin.reports.zonal-reports', [
+                'months' => $this->getMonths(),
+                'years' => $this->getReportYear(),
+                'divisions' => $this->getDivisions(),
+                'reports' => $this->ZonalReportsData($request)
+            ]);
+    }
+    protected function ZonalReportsData(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'division_id' => 'nullable',
+                'year' => 'required',
+                'month' => 'nullable',
+            ]);
+
+
+            $res = [];
+            if ($data['month'] == '') {
+                $res =  ZonalReport::select(
+                    'zonal_reports.id',
+                    'zonal_reports.created_at',
+                    'br.church_name',
+                    'report_year',
+                    'report_month',
+                    'month_key',
+                    'branch_visited',
+                    'total_tithe',
+                    'total_first_offering',
+                    'amalgamation_paid',
+                    'algamation_correct',
+                    'records_verified',
+                    'dv.division_name'
+                )
+                    ->join('branches as br', 'zonal_reports.branch_id', '=', 'br.id')
+                    ->join('divisions as dv', 'br.division_id', '=', 'dv.id')
+                    ->where('br.division_id',  $data['division_id'])
+                    ->where('report_year', $data['year'])
+                    ->orderBy('church_name')->orderBy('month_key', 'desc')
+                    ->get(); //
+            } else {
+
+                $res =   $res =  ZonalReport::select(
+                    'zonal_reports.id',
+                    'zonal_reports.created_at',
+                    'br.church_name',
+                    'report_year',
+                    'report_month',
+                    'month_key',
+                    'branch_visited',
+                    'total_tithe',
+                    'total_first_offering',
+                    'amalgamation_paid',
+                    'algamation_correct',
+                    'records_verified',
+                    'dv.division_name'
+                )
+                    ->join('branches as br', 'zonal_reports.branch_id', '=', 'br.id')
+                    ->join('divisions as dv', 'br.division_id', '=', 'dv.id')
+                    ->where('br.division_id',  $data['division_id'])
+                    ->where('report_year', $data['year'])
+                    ->where('month_key', $data['month'])
+                    ->orderBy('church_name')->orderBy('month_key', 'desc')
+                    ->get(); //
+
+            }
+
+            return $res;
+        } catch (\Exception $exception) {
+            Log::error('  - error: ' . $exception->getMessage());
+        }
+    }
 
 
    /*  public static function getReportYear()
