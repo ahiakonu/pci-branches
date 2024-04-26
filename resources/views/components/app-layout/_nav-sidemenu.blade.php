@@ -18,7 +18,20 @@
                 </h2>
             </a>
         </div>
-
+        
+        @can('divisional')
+            @php
+                $url = '/' . Route::current()->uri;
+                $selected = 0;
+                if (str_contains($url, '/divisional/dashboard')) {
+                    $selected = 1;
+                } elseif (str_contains($url, '/divisional/zone/reports') || str_contains($url, '/divisional/branch/reports') || str_contains($url, '/zonal/branch/reports/show')) {
+                    $selected = 2;
+                } elseif (str_contains($url, '/zonal/noticedownload/downloads')) {
+                    $selected = 3;
+                }
+            @endphp
+        @endcan
         @can('zonal')
             @php
                 $url = '/' . Route::current()->uri;
@@ -128,7 +141,27 @@
                         link="/zonal/noticedownload/downloads" />
                 </x-app-layout.sm-lidropdown>
             @endcan
-            <!-- //BRANCH MENUS -->
+            <!-- //ZONAL MENUS -->
+
+            <!-- DIVISIONAL MENUS -->
+            @can('divisional')
+                <x-app-layout.sm-li lable="Dashboard" link="/divisional/dashboard">
+                    <x-app-svg.dashboard />
+                </x-app-layout.sm-li>
+
+                <x-app-layout.sm-lidropdown sel_index="2" sgv="Utilities" lable="Reporting">
+                    <x-app-layout.sm-ul-li lable="Divisional Report" link="/divisional/zone/index" />
+                    <x-app-layout.sm-ul-li lable="Zonal Reports" link="/divisional/zone/reports" /> 
+                    <x-app-layout.sm-ul-li lable="Branch Report - Details" link="/divisional/branch/reports" />
+
+                </x-app-layout.sm-lidropdown>
+
+                <x-app-layout.sm-lidropdown sel_index="3" sgv="Utilities" lable="Notices & Downloads"> 
+                    <x-app-layout.sm-ul-li lable="Admin Downloads"
+                        link="/divisional/noticedownload/downloads" />
+                </x-app-layout.sm-lidropdown>
+            @endcan
+            <!-- //DIVISIONAL MENUS -->
 
 
 

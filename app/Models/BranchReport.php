@@ -70,4 +70,9 @@ class BranchReport extends Model
             $model->amalgamation_paid = 0.0;
         });
     }
+
+    public function getServiceDateAttribute($date)  {
+         
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 }

@@ -406,7 +406,7 @@ class ZonalReportController extends Controller
     public function branchReportDetailsEdit(string $id)
     {
         return view(
-            'zonal.br.br-service-edit',
+            'zonal.br.zone-br-service-edit',
             [
                 'services' => Service::all(),
                 'report' => BranchReport::findOrFail($id)

@@ -25,7 +25,7 @@ class ReportGenerationController extends Controller
                 'reportdata' => $this->BranchReportDataAll($request)
             ]);
     }
-    public function BranchReportDataAll(Request $request)
+    protected function BranchReportDataAll(Request $request)
     {
         try {
             $data = $request->validate([
@@ -301,7 +301,7 @@ class ReportGenerationController extends Controller
                 'reportdata' => $this->BranchesReportData($request)
             ]);
     }
-    public function BranchesReportData(Request $request)
+    protected function BranchesReportData(Request $request)
     {
         try {
             $data = $request->validate([

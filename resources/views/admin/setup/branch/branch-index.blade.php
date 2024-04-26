@@ -27,8 +27,8 @@
                                 <x-app-layout-table.th lablename="Currency" />
                                 <x-app-layout-table.th lablename="Login_Status" />
                                 <x-app-layout-table.th lablename="Country" />
-                                <x-app-layout-table.th lablename="Church Status" class="hidden lg:table-cell" />
-                                <x-app-layout-table.th lablename="Church Target" />
+                                <x-app-layout-table.th lablename="Status" class="hidden lg:table-cell" />
+                                <x-app-layout-table.th lablename="Church_Target(Attd&Inc)" />
                                 <x-app-layout-table.th data-sortable="false" lablename="Actions" />
                             </x-app-layout-table.thead>
                             <x-app-layout-table.tbody>

@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex-shrink max-w-full px-4 w-full mb-6 my-3">
         <div class="flex-shrink max-w-full px-4 w-full md:flex md:justify-between">
-            <p class="text-xl font-bold mt-0 mb-5">Service Reporting Edit :: By Zonal Overseer</p>
+            <p class="text-xl font-bold mt-0 mb-5">Branch Report Update :: By Divisional Overseer</p>
 
             
 
@@ -33,7 +33,7 @@
             @endif
 
             <form class="flex flex-wrap flex-row -mx-4" method="POST"
-                action="{{ route('zonal.branchreport.update', $report->id) }}"
+                action="{{ route('divisional.branchreport.update', $report->id) }}"
                 onsubmit="return SubmitFromAlert(this,'Update {{ $report->branch->church_name }} report');">
                 @csrf
                 @method('PATCH')

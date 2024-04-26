@@ -30,7 +30,6 @@ class MiddleWareZonalOnly
             }
 
             elseif ($user?->user_role === 'ZONAL_OVERSEER') {
-                Log::info('zone hir');
                 return $next($request);
             }
 
