@@ -6,12 +6,14 @@ use App\Exports\DivisionalBranchReportsAllExport;
 use App\Http\Traits\GlobalValuesCore;
 use App\Models\Branch;
 use App\Models\BranchReport;
+use App\Models\DivisionalReport;
 use App\Models\Service;
 use App\Models\ZonalReport;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DivisionalReportController extends Controller
@@ -25,7 +27,6 @@ class DivisionalReportController extends Controller
 
     public function divisionalIndex()
     {
-
         return view(
             'dashboard-divisional',
             [
@@ -38,7 +39,7 @@ class DivisionalReportController extends Controller
                     ->where('zn.division_id', $this->div_id())->where('report_year', now()->year)->count(),
                 'branches' => [],
                 'zones' => $this->zonesSnapShort(),
-                'zonereports' => []//$this->topZoneReports()
+                'divisional_reports' =>  DivisionalReport::where('report_year', now()->year)->where('division_id', $this->div_id())->get()
             ]
         );
     }
@@ -188,18 +189,16 @@ class DivisionalReportController extends Controller
                     ->orderBy('church_name')->orderBy('service_date', 'desc')
                     ->get();
             } else {
-                
-                $res =  BranchReport::select(['branch_reports.*', 'zones.zone_name', 'branches.church_name', 'branches.currency', 'services.service'])
-                ->join('branches', 'branch_reports.branch_id', '=', 'branches.id')
-                ->join('zones', 'branches.zone_id', '=', 'zones.id')
-                ->join('services', 'branch_reports.service_id', '=', 'services.id')
-                ->where('branches.zone_id', $data['zone'])
-                ->whereYear('service_date', $data['year'])
-                ->whereMonth('service_date', $data['month'])
-                ->orderBy('church_name')->orderBy('service_date', 'desc')
-                ->get();
 
-               
+                $res =  BranchReport::select(['branch_reports.*', 'zones.zone_name', 'branches.church_name', 'branches.currency', 'services.service'])
+                    ->join('branches', 'branch_reports.branch_id', '=', 'branches.id')
+                    ->join('zones', 'branches.zone_id', '=', 'zones.id')
+                    ->join('services', 'branch_reports.service_id', '=', 'services.id')
+                    ->where('branches.zone_id', $data['zone'])
+                    ->whereYear('service_date', $data['year'])
+                    ->whereMonth('service_date', $data['month'])
+                    ->orderBy('church_name')->orderBy('service_date', 'desc')
+                    ->get();
             }
 
             return $res;
@@ -219,10 +218,9 @@ class DivisionalReportController extends Controller
         );
     }
 
-
     public function exportBranchReports(Request $request)
     {
-     
+
         $data = $request->all();
 
         $montt = $data['down_month'] == '' ? 0 : intval($data['down_month']);
@@ -233,37 +231,133 @@ class DivisionalReportController extends Controller
 
 
 
-      //BRANCHES
-      public function branchesReport(Request $request)
-      {
-          return
-              view('divisional.div-branches-list', [
-                  'select_opt' => ['Active', 'Inactive'],
-                  'zones' => $this->divisionZones(),
-                  'reportdata' => $this->DivisionBranchesData($request)
-              ]);
-      }
-      protected function DivisionBranchesData(Request $request)
-      {
-          try {
-              $data = $request->validate([
-                  'zone' => 'nullable',
-                  'church_status' => 'nullable'
-              ]);
-  
-              $res =  Branch::select(['branches.*', 'div.division_name', 'div.country', 'z.zone_name'])
-                  ->join('divisions as div', 'branches.division_id', '=', 'div.id')
-                  ->join('zones as z', 'branches.zone_id', '=', 'z.id')
-                  ->where('church_status', 'like', '%' . $data['church_status'] . '%')
-                  ->where('branches.zone_id', 'like', '%' . $data['zone'] . '%')
-                  ->where('branches.division_id',$this->div_id())
-                  ->orderBy('division_id')->orderBy('church_name')
-                  ->get();
-  
-  
-              return $res;
-          } catch (\Exception $exception) {
-              Log::error('All report - error: ' . $exception->getMessage());
-          }
-      }
+    //BRANCHES
+    public function branchesReport(Request $request)
+    {
+        return
+            view('divisional.div-branches-list', [
+                'select_opt' => ['Active', 'Inactive'],
+                'zones' => $this->divisionZones(),
+                'reportdata' => $this->DivisionBranchesData($request)
+            ]);
+    }
+    protected function DivisionBranchesData(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'zone' => 'nullable',
+                'church_status' => 'nullable'
+            ]);
+
+            $res =  Branch::select(['branches.*', 'div.division_name', 'div.country', 'z.zone_name'])
+                ->join('divisions as div', 'branches.division_id', '=', 'div.id')
+                ->join('zones as z', 'branches.zone_id', '=', 'z.id')
+                ->where('church_status', 'like', '%' . $data['church_status'] . '%')
+                ->where('branches.zone_id', 'like', '%' . $data['zone'] . '%')
+                ->where('branches.division_id', $this->div_id())
+                ->orderBy('division_id')->orderBy('church_name')
+                ->get();
+
+
+            return $res;
+        } catch (\Exception $exception) {
+            Log::error('All report - error: ' . $exception->getMessage());
+        }
+    }
+
+
+
+
+    //DIVISIONAL REPORTING
+    public function index(Request $request)
+    {
+        return view('divisional.div.div-report-index', [
+            'years' => $this->getReportYear(),
+            'reports' => $this->divisionReportsData($request)
+        ]);
+    }
+
+    protected function divisionReportsData(Request $request)
+    {
+        try {
+            $data = $request->validate([
+                'year' => 'required',
+            ]);
+
+            $res = DivisionalReport::where('report_year', $data['year'])->where('division_id', $this->div_id())->get();
+
+            return $res;
+        } catch (\Exception $exception) {
+            Log::error('  - error: ' . $exception->getMessage());
+        }
+    }
+
+    public function create(Request $request)
+    {
+        return view('divisional.div.div-report-create', [
+            'years' => [now()->year - 1, now()->year],
+            'yesno' => ['YES', 'NO'],
+            'months' => $this->getMonths(),
+            'branches' => Branch::select('church_name', 'id')->where('division_id', $this->div_id())->get()
+        ]);
+    }
+    public function store(Request $request)
+    {
+
+        $attributes = $this->FormValidation($request);
+        $attributes['month_key'] = $attributes['report_month'];
+        $attributes['report_month']  = $this->getMonths()->where('monthkey', $attributes['report_month'])->pluck('month')[0];
+        $attributes['division_id']  = $this->div_id();
+        //check if record already exists
+        if (DB::table('divisional_reports')
+            ->where('report_year', $attributes['report_year'])
+            ->where('month_key', $attributes['month_key'])
+            ->exists()
+        ) {
+            throw ValidationException::withMessages(['errrormessage' => 'Divisional report for ' . $attributes['report_month'] . ',' . $attributes['report_year'] . '  already exists in the system. Process abored!']);
+        }
+        try {
+
+            //return $attributes;
+            DivisionalReport::create($attributes);
+
+            return back()->with(['success' => 'Divisional report saved successfully !']);
+        } catch (\Exception $ex) {
+            Log::info('error - Divisional report ::' . $ex);
+        }
+    }
+
+    public function show(DivisionalReport $divisionalreport)
+    {
+        return view('divisional.div.div-report-show', [
+            'report' => $divisionalreport,
+            'years' => $this->getReportYear(),
+            'yesno' => ['YES', 'NO'],
+            'months' => $this->getMonths(),
+        ]);
+    }
+
+    protected function FormValidation(Request $request): array
+    {
+        ///$branch ??= new Branch();
+        return  $request->validate([
+            'report_year' => 'required|min:4',
+            'report_month' => 'required',
+            'visit_any_branch' => 'required',
+            'branches_visisted' => 'required',
+            'branches_paid_amalg' => 'required',
+            'branches_not_paid_amalg_details' => 'nullable',
+            'sent_amalg' => 'required',
+            'not_sent_amalg_details' => 'nullable',
+            'amalg_defaults' => 'required',
+            'amalg_defaults_branches' => 'nullable',
+            'amalg_defaults_action' => 'nullable',
+            'compliance_issues' => 'required',
+            'compliance_issues_details' => 'nullable',
+            'divisional_programs' => 'required',
+            'divisional_ptogram_details' => 'nullable',
+            'all_branches_attended' => 'nullable',
+            'all_branches_attended_details' => 'nullable',
+        ]);
+    }
 }

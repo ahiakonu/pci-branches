@@ -52,6 +52,7 @@ class DashboardsController extends Controller
         $data = [];
         $data['reports_count'] = DB::table('branch_reports')->whereYear('service_date', now()->year)->count();
         $data['zone_reports_count'] = DB::table('zonal_reports')->where('report_year', now()->year)->count();
+        $data['division_reports_count'] = DB::table('divisional_reports')->where('report_year', now()->year)->count();
         $data['active_churches'] = DB::table('branches')->where('church_status', 'Active')->count();
 
 

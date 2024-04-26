@@ -25,7 +25,7 @@
                 $selected = 0;
                 if (str_contains($url, '/divisional/dashboard')) {
                     $selected = 1;
-                } elseif (str_contains($url, '/divisional/zone/reports') || str_contains($url, '/divisional/branch/reports') || str_contains($url, '/zonal/branch/reports/show')) {
+                } elseif (str_contains($url, '/divisional/zone/reports') || str_contains($url, '/divisional/branch/reports') || str_contains($url, '/divisional/divisional')) {
                     $selected = 2;
                 } elseif (str_contains($url, '/zonal/noticedownload/downloads')) {
                     $selected = 3;
@@ -150,7 +150,7 @@
                 </x-app-layout.sm-li>
 
                 <x-app-layout.sm-lidropdown sel_index="2" sgv="Utilities" lable="Reporting">
-                    <x-app-layout.sm-ul-li lable="Divisional Report" link="/divisional/zone/index" />
+                    <x-app-layout.sm-ul-li lable="Divisional Report" link="/divisional/divisional/index" />
                     <x-app-layout.sm-ul-li lable="Zonal Reports" link="/divisional/zone/reports" /> 
                     <x-app-layout.sm-ul-li lable="Branch Report - Details" link="/divisional/branch/reports" />
 

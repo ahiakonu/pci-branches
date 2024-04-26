@@ -145,7 +145,7 @@ class ZonalReportController extends Controller
 
             return back()->with(['success' => 'Zone report saved successfully !']);
         } catch (\Exception $ex) {
-            Log::info('error - zonal report ::' . $ex);
+            Log::info('error - zonal report create ::' . $ex);
             //throw ValidationException::withMessages(['errrormessage' => $ex]);
         }
     }

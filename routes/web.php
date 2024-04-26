@@ -182,9 +182,11 @@ Route::prefix('divisional')->middleware(['auth', 'divisionalOnly'])->group(funct
     Route::get('/branch/reports/show/{branchreport}/edit', [DivisionalReportController::class, 'branchReportDetailsEdit'])->name('divisional.branch.report.edit');
     Route::patch('/branch/report/{branchreport}/edit', [BranchReportController::class, 'adminUpdate'])->name('divisional.branchreport.update');
     Route::get('/branches', [DivisionalReportController::class, 'branchesReport'])->name('divisional.branches');
-    // Route::get('/zone/create', [ZonalReportController::class, 'create'])->name('zonal.zone.create');
-    // Route::get('/zone/{zonalreport}/show', [ZonalReportController::class, 'show'])->name('zonal.zone.show');
-    // Route::post('/zone/store', [ZonalReportController::class, 'store'])->name('zonal.zone.store');
+    
+    Route::get('/divisional/index', [DivisionalReportController::class, 'index'])->name('divisional.divisional.index');
+    Route::get('/divisional/create', [DivisionalReportController::class, 'create'])->name('divisional.divisional.create');
+    Route::get('/divisional/{divisionalreport}/show', [DivisionalReportController::class, 'show'])->name('divisional.divisional.show');
+    Route::post('/divisional/store', [DivisionalReportController::class, 'store'])->name('divisional.divisional.store');
 
     // Route::get('/branch/reports', [ZonalReportController::class, 'branchReports'])->name('zonal.branch.reports');
     // Route::get('/branch/reports/show', [ZonalReportController::class, 'branchReportShow'])->name('zonal.branch.show');

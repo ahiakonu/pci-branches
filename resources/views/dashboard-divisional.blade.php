@@ -72,7 +72,8 @@
 
                 <div class="flex flex-row justify-between w-full">
                     <div class="flex items-center text-black-500">
-                        <a class="text-sm mb-3 hover:text-gray-500 hover:underline" href="{{route('divisional.branches')}}">View
+                        <a class="text-sm mb-3 hover:text-gray-500 hover:underline"
+                            href="{{ route('divisional.branches') }}">View
                             more..
                             </span></a>
                     </div>
@@ -146,7 +147,8 @@
                                     @foreach ($zones as $evt)
                                         <tr>
                                             <x-app-layout-table.td> {{ $evt->zone_name }}</x-app-layout-table.td>
-                                            <x-app-layout-table.td> {{ $evt->attendaceTarget }} </x-app-layout-table.td>
+                                            <x-app-layout-table.td> {{ $evt->attendaceTarget }}
+                                            </x-app-layout-table.td>
                                             <x-app-layout-table.td> @fmoney($evt->incomeTarget) </x-app-layout-table.td>
                                             <x-app-layout-table.td> {{ $evt->zonal_leader }} </x-app-layout-table.td>
                                             <x-app-layout-table.td> {{ $evt->reports }} </x-app-layout-table.td>
@@ -192,54 +194,31 @@
 
                     <x-app-layout-table.table class="hidden-header hidden-sort-after">
                         <x-app-layout-table.thead>
-
                             <x-app-layout-table.th lablename="Report_Date" />
                             <x-app-layout-table.th lablename="Rep_Month" />
-                            <x-app-layout-table.th lablename="Branch" />
-                            <x-app-layout-table.th lablename="Branch_Visited" />
-                            <x-app-layout-table.th lablename="Tot_Tithe" />
-                            <x-app-layout-table.th lablename="Tot_1stOff" />
+                            <x-app-layout-table.th lablename="Branches_Visited" />
                             <x-app-layout-table.th lablename="Amalg_Paid" />
-                            <x-app-layout-table.th lablename="Amalg_Correct" />
-                            <x-app-layout-table.th lablename="Rec_Verified" />
-                            <x-app-layout-table.th data-sortable="false" lablename="Actions" />
+                            <x-app-layout-table.th lablename="Amalg_Defaults" />
+                            <x-app-layout-table.th lablename="Compliance_Issues" />
                         </x-app-layout-table.thead>
                         <x-app-layout-table.tbody>
-                            @if ($zonereports != null)
-                                @foreach ($zonereports as $report)
+                            @if ($divisional_reports != null)
+                                @foreach ($divisional_reports as $report)
                                     <tr>
 
                                         <x-app-layout-table.td> {{ $report->created_at }} </x-app-layout-table.td>
-                                        <x-app-layout-table.td> {{ $report->report_year }} ,
-                                            {{ $report->report_month }} </x-app-layout-table.td>
-                                        <x-app-layout-table.td>{{ $report->church_name }} </x-app-layout-table.td>
-
-                                        <x-app-layout-table.td>{{ $report->branch_visited }}
+                                        <x-app-layout-table.td> {{ $report->report_year }}
+                                            ,{{ $report->report_month }} </x-app-layout-table.td>
+                                        <x-app-layout-table.td>{{ $report->branches_visisted }}
                                         </x-app-layout-table.td>
 
-                                        <x-app-layout-table.td> @fmoney($report->total_tithe) </x-app-layout-table.td>
-
-                                        <x-app-layout-table.td> @fmoney($report->total_first_offering) </x-app-layout-table.td>
-                                        <x-app-layout-table.td> @fmoney($report->amalgamation_paid) </x-app-layout-table.td>
-                                        <x-app-layout-table.td> {{ $report->algamation_correct }}
+                                        <x-app-layout-table.td>{{ $report->branches_paid_amalg }}
                                         </x-app-layout-table.td>
-
-                                        <x-app-layout-table.td>{{ $report->records_verified }}
+                                        <x-app-layout-table.td> {{ $report->amalg_defaults }}
                                         </x-app-layout-table.td>
+                                        <x-app-layout-table.td>{{ $report->compliance_issues }}</x-app-layout-table.td>
 
-                                        <x-app-layout-table.td>
-                                            <div class="flex">
-                                                <x-app-layout.tooltip-header>
-                                                    <a href="javascript:;" x-on:mouseover="tooltips = true"
-                                                        x-on:mouseleave="tooltips = false"
-                                                        onclick="SumitEdit('View my {{ $report->service_date }}  {{ $report->service }} report ?','/branch/branchreport/{{ $report->id }}')"
-                                                        class="inline-block ltr:mr-2 rtl:ml-2 hover:text-green-500">
-                                                        <x-app-svg.openfolder />
-                                                        <x-app-layout.tooltip-details tooltip_label="details" />
-                                                    </a>
-                                                </x-app-layout.tooltip-header>
-                                            </div>
-                                        </x-app-layout-table.td>
+
 
                                     </tr>
                                 @endforeach
@@ -247,7 +226,6 @@
 
                         </x-app-layout-table.tbody>
                     </x-app-layout-table.table>
-
                 </div>
 
             </div>
