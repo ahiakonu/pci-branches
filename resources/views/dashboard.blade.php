@@ -14,7 +14,7 @@
 
             {{-- Branch Reports --}}
             <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
-                <div class="bg-green-100 dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
                     <h3 class="text-base font-bold mb-2">Branch Reports In {{ $thisyear }}</h3>
 
                     <div class="relative text-center">
@@ -43,7 +43,7 @@
 
             {{-- Zonal Reports --}}
             <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
-                <div class="bg-red-100 dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
                     <h3 class="text-base font-bold mb-2">Zonal Reports In {{ $thisyear }}</h3>
 
                     <div class="relative text-center">
@@ -72,7 +72,7 @@
 
             {{-- Divisional Reports --}}
             <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
-                <div class="bg-indigo-100 dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
                     <h3 class="text-base font-bold mb-2">Divisional Reports In {{ $thisyear }}</h3>
 
                     <div class="relative text-center">
@@ -103,7 +103,7 @@
 
             {{-- Churches Reports --}}
             <div class="flex-shrink max-w-full px-4 w-full sm:w-1/4 lg:w-1/4 mb-6">
-                <div class="bg-yellow-100 dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full p-6 relative overflow-hidden">
                     <h3 class="text-base font-bold mb-2">Active Churches</h3>
 
                     <div class="relative text-center">
